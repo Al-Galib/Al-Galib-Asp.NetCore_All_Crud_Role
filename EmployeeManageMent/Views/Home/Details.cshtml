@@ -1,0 +1,59 @@
+﻿@model AllEmployee
+
+@{
+    ViewData["Title"] = "Details";
+    var Picture = "~/uploads/" + (Model.Employee.Picture ?? "no-picture.png");
+
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>EmployeeVM</h4>
+    <hr />
+    <div class="d-flex justify-content-end">
+        <a asp-controller="Home" asp-action="Create" class="btn btn-primary btn-sm rounded-circle"><i class="bi bi-plus"></i></a>
+    </div>
+
+
+    <div class="row justify-content-center m-3">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3> @Model.Employee.Name</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h4><img src="@Picture" class="rounded-circle" width="80" asp-append-version="true" /></h4>
+                    <h4>@Model.Employee.Department</h4>
+                    <h4>@Model.Employee.Email</h4>
+
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary btn-sm">Back</a>
+                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.Employee.Id" class="btn btn-primary btn-sm">Edit</a>
+                </div>
+            </div>
+
+            <a asp-action="Index">Back to List</a>
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+<div>
+
+    
+</div>
+@section styles
+    {
+    <environment include="Development,Production">
+
+        <link href="~/libs/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    </environment>
+}
+

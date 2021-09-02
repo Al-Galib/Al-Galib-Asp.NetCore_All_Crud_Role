@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewBag.Title = "All Users";
+}
+<h1>All Users</h1>
+@if (Model.Any())
+{
+    @*<div class="d-flex justify-content-end mb-1">
+        <a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole" asp-controller="Administration">Add new role</a>
+
+    </div>*@
+    <div class="row">
+        <div class="col-12">
+
+            <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>Role Id</th>
+                        <th>Role Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in Model)
+                    {
+                        <tr>
+                            <td>@role.Id</td>
+                            <td>@role.UserName</td>
+                            <td>
+                                <form asp-action="DeleteUser" asp-route-id="@role.Id" method="post">
+                                    <a class="btn btn-primary " style="width:auto" asp-action="EditUser"
+                                       asp-controller="Administration" asp-route-id="@role.Id">Edit</a>
+
+                                    <span id="confirmDeleteSpan_@role.Id" style="display: none">
+                                        <span>Are you sure !<br /> You want to delete?</span>
+                                        <button class="btn btn-danger " style="width:auto" type="submit">Yes</button>
+                                        <a href="#" class="btn btn-success" onclick="confirmDelete('@role.Id', false)">No</a>
+                                    </span>
+                                    <span id="deleteSpan_@role.Id">
+                                        <a href="#" onclick="confirmDelete('@role.Id',true)" class="btn btn-danger ">Delete</a>
+                                    </span>
+                                    @*or*@
+                                    @*<button class="btn btn-danger "
+                                            onclick="return confirm('Are you sure you want to Delete user : @role.UserName')"
+                                            style="width:auto" type="submit"></button>*@
+
+                                </form>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+
+}
+else
+{
+    <div class="card">
+        <div class="card-header"> No Users Created yet</div>
+        <div class="card-body">
+            <h5 class="card-title">Use button below to create a Users</h5>
+            <a class="btn btn-primary" style="width:auto"
+               asp-controller="Account" asp-action="Register">Create User</a>
+        </div>
+    </div>
+
+}
+@section scripts{ 
+    <script src="~/libs/CustomScript.js"></script>
+}
